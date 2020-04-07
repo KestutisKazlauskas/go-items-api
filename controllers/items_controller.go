@@ -9,6 +9,7 @@ import (
 	"github.com/KestutisKazlauskas/go-items-api/domain/items"
 	"github.com/KestutisKazlauskas/go-items-api/services"
 	"github.com/KestutisKazlauskas/go-items-api/utils/http_utils"
+	"github.com/KestutisKazlauskas/go-utils/logger"
 )
 
 var (
@@ -27,6 +28,8 @@ func (c *itemsController) Create(w http.ResponseWriter, r *http.Request) {
 		http_utils.RespondError(w, err)
 		return 
 	}
+
+	logger.Log.Info(r.Header.Get("X-User-Id"))
 
 	sellerId := oauth.GetUserId(r)
 	if sellerId == 0 {
